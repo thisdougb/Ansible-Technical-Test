@@ -1,0 +1,27 @@
+---
+- name: Ensure nginx is installed
+  apt: 
+    name: nginx 
+    state: present
+
+- name: Create nginx.conf from template
+  template: 
+    dest: /etc/nginx/nginx.conf 
+    group: root 
+    mode: 0644
+    owner: root 
+    src: nginx.conf.j2 
+
+- name: Wait for app servers to become responsive
+  wait_for: 
+    connect_timeout: 3
+    host: "{{ item }}" 
+    port: "{{ appPort }}" 
+    timeout: 3 
+  with_items: groups.appservers
+
+- name: Ensure nginx running
+  service: 
+    enabled: yes
+    name: nginx 
+    state: started 

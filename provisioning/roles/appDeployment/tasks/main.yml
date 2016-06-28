@@ -1,0 +1,33 @@
+---
+- name: Ensure testapp service is stopped for code installation
+  service: 
+    name: "{{ appBinary }}" 
+    state: stopped
+
+- name: Ensure there are no previous deployment files
+  file: 
+    path: "{{ appBinaryPath }}"
+    state: absent
+
+- name: Git checkout of code
+  become_user: "{{ appuserName }}"
+  git: 
+    dest: "{{ appCheckoutPath }}"
+    repo: "{{ appGitRepo }}"
+
+# NOTE: showing Ansible conditional (when:)
+- name: Build testapp.go
+  become_user: "{{ appuserName }}"
+  command: "/usr/bin/go build -o {{ appBinaryPath }} {{ appCheckoutPath }}/testCode.go"
+  when: buildBroken is undefined
+
+- name: Build broken testapp.go
+  become_user: "{{ appuserName }}"
+  command: "/usr/bin/go build -o {{ appBinaryPath }} {{ appCheckoutPath }}/testCodeBroken.go"
+  when: buildBroken is defined
+
+- name: restart testapp service
+  service: 
+    enabled: yes
+    name: "{{ appBinary }}" 
+    state: restarted 

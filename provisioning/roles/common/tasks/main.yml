@@ -1,0 +1,17 @@
+---
+- name: Ensure hostname set
+  hostname: 
+    name: "{{ inventory_hostname }}"
+
+- name: Ensure /etc/hosts populated
+  template: 
+    dest: /etc/hosts 
+    group: root 
+    mode: 0644
+    owner: root 
+    src: hosts.j2 
+
+- name: Run apt-get update to refresh package source list
+  apt: 
+    cache_valid_time: 3600
+    update_cache: yes 

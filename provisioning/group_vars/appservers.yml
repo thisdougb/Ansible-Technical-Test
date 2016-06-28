@@ -1,0 +1,11 @@
+---
+# defaults for app service account
+appuserName: techtest
+appuserComment: "Service user account"
+appuserHomeDir: /home/techtest
+
+# reusable variables for code deployment
+appBinary: testCode
+appBinaryPath: "{{appuserHomeDir}}/{{appBinary}}"
+appCheckoutPath: "{{appuserHomeDir}}/src"
+appGitRepo: https://github.com/thisdougb/TechTestCode.git

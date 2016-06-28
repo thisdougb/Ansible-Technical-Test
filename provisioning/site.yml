@@ -1,0 +1,31 @@
+---
+- name: appserver
+  hosts: appservers
+  serial: "{{ serialCount | default(5) | int }}"
+  become: yes
+  roles:
+    - common
+    - appNodePackages
+    - appServiceAccount
+    - { role: appDeployment, tags: appDeploy }
+
+- name: webserver
+  hosts: webservers
+  become: yes
+  roles:
+    - common
+    - webNodePackages
+
+- name: Test end to end application availability
+  hosts: webservers
+  become: no
+  tasks:
+    - name: Testing load balancing on nginx
+      local_action: command /bin/sh testApplication.sh
+      register: testOutput
+    - debug: msg="{{ testOutput.stdout }}"
+
+    - name: Check each app node is in the web response
+      fail: msg="End to end service failure, something went wrong with {{ item }}..."
+      when: "'{{ item }}' not in testOutput.stdout"
+      with_items: groups['appservers']

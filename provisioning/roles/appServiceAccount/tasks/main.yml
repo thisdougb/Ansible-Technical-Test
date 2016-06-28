@@ -1,0 +1,14 @@
+---
+- name: Create application service account
+  user: 
+    comment: "{{ appuserComment }}"
+    home: "{{ appuserHomeDir }}"
+    name: "{{ appuserName }}" 
+
+- name: Install testapp service helper file
+  template:
+    src: service.conf.j2
+    dest: "/etc/init/{{ appBinary }}.conf"
+    owner: root
+    group: root
+    mode: 0644

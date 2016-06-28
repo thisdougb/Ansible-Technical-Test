@@ -1,0 +1,25 @@
+#{{ ansible_managed }}
+# bare bones nginx.conf file
+
+events {
+  worker_connections  4096;  ## Default: 1024
+}
+http {
+    upstream myapp1 {
+
+{% for host in groups.appservers %}
+{% if hostvars[host]['ansible_eth1'] is defined %}
+      server {{ host }}:8484;
+{% endif %}
+{% endfor %}
+
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://myapp1;
+        }
+    }
+}

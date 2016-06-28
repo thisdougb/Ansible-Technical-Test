@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+description "bare minimum start and stop example"
+
+start on started networking
+stop on runlevel [!2345]
+
+env APPUSER="{{ appuserName }}"
+env APPBIN="{{ appBinaryPath }} "
+
+respawn
+
+script
+  exec su - $APPUSER -c "$APPBIN"
+end script

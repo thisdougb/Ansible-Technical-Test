@@ -1,0 +1,10 @@
+---
+- name: Ensure Git is installed
+  apt: 
+    name: git 
+    state: present
+
+- name: Ensure Go language is installed
+  apt: 
+    name: golang 
+    state: present
