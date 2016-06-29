@@ -16,12 +16,12 @@
     repo: "{{ appGitRepo }}"
 
 # NOTE: showing Ansible conditional (when:)
-- name: Build testapp.go
+- name: Build testCode.go
   become_user: "{{ appuserName }}"
   command: "/usr/bin/go build -o {{ appBinaryPath }} {{ appCheckoutPath }}/testCode.go"
   when: buildBroken is undefined
 
-- name: Build broken testapp.go
+- name: Build broken testCodeBroken.go
   become_user: "{{ appuserName }}"
   command: "/usr/bin/go build -o {{ appBinaryPath }} {{ appCheckoutPath }}/testCodeBroken.go"
   when: buildBroken is defined
