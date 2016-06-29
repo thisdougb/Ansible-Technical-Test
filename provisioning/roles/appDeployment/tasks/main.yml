@@ -1,5 +1,5 @@
 ---
-- name: Ensure testapp service is stopped for code installation
+- name: Ensure {{ appBinary }} service is stopped for code installation
   service: 
     name: "{{ appBinary }}" 
     state: stopped
@@ -26,8 +26,8 @@
   command: "/usr/bin/go build -o {{ appBinaryPath }} {{ appCheckoutPath }}/testCodeBroken.go"
   when: buildBroken is defined
 
-- name: restart testapp service
+- name: Start {{ appBinary }} service
   service: 
     enabled: yes
     name: "{{ appBinary }}" 
-    state: restarted 
+    state: started 
