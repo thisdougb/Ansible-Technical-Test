@@ -55,3 +55,20 @@ Hi there, I'm served from app2!
 Hi there, I'm served from app2!
 ```
 *To recover from this partially failed state, simply re-run the provisioning without the extra vars setting (remove: -e “buildBroken=true serialCount=1”)*
+
+######Development Environment
+
+Mac OSX, Ansible, Vagrant, VirtualBox running Ubuntu instances.
+```
+$ ansible --version
+ansible 2.0.0.2
+  config file = ./ansible.cfg
+  configured module search path = Default w/o overrides
+$ vagrant --version
+Vagrant 1.8.4
+(reverse-i-search)`v': vagrant --version
+$ vboxmanage --version
+5.0.22r108108
+$ uname -a
+Darwin camus.lan 15.5.0 Darwin Kernel Version 15.5.0: Tue Apr 19 18:36:36 PDT 2016; root:xnu-3248.50.21~8/RELEASE_X86_64 x86_64
+```
