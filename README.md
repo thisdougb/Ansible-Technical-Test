@@ -66,7 +66,6 @@ ansible 2.0.0.2
   configured module search path = Default w/o overrides
 $ vagrant --version
 Vagrant 1.8.4
-(reverse-i-search)`v': vagrant --version
 $ vboxmanage --version
 5.0.22r108108
 $ uname -a
