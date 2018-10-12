@@ -29,7 +29,7 @@ Hi there, I'm served from app2!
 ```
 
 
-######Bonus Point
+###### Bonus Point
 
 Ansible’s orchestration power gives us the ability to perform abstract changes across multi-tier environments, while still being understandable and readable by your colleagues.   Here I use orchestration in its simplest form, ‘*for changes to the sample code, automate the build and delivery to the environment…with no service interruption.*’   For rolling code deployments we set the serial execution of Ansible to one, which runs the plays against the VMs serially and stopping on first failure.
 
@@ -56,7 +56,7 @@ Hi there, I'm served from app2!
 ```
 *To recover from this partially failed state, simply re-run the provisioning without the extra vars setting (remove: -e “buildBroken=true serialCount=1”)*
 
-######Development Environment
+###### Development Environment
 
 Mac OSX, Ansible, Vagrant, VirtualBox running Ubuntu instances.
 ```
